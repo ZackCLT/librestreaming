@@ -1,6 +1,6 @@
 package me.lake.librestreaming.sample.hardfilter;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import java.nio.FloatBuffer;
 import java.text.SimpleDateFormat;
@@ -17,7 +17,7 @@ public class TimeStampHardFilter extends TextHardFilter {
     private long lastUpdateTime;
     private SimpleDateFormat f4;
 
-    public TimeStampHardFilter(@Nullable String formater,int textColor, int textSize) {
+    public TimeStampHardFilter(@Nullable String formater, int textColor, int textSize) {
         super(DEFAULT_TIME_FORMATER,textColor,textSize);
         formater = formater==null?DEFAULT_TIME_FORMATER:formater;
         f4 = new SimpleDateFormat(formater, Locale.getDefault());

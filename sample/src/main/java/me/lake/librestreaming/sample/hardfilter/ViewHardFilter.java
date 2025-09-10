@@ -6,8 +6,9 @@ import android.graphics.PorterDuff;
 import android.graphics.SurfaceTexture;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
-import android.support.annotation.NonNull;
 import android.view.Surface;
+
+import androidx.annotation.NonNull;
 
 import java.nio.FloatBuffer;
 

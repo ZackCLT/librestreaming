@@ -6,11 +6,12 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.opengl.GLES20;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 
 import java.nio.FloatBuffer;
 

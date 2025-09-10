@@ -5,8 +5,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

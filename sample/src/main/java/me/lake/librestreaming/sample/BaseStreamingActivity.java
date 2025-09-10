@@ -9,7 +9,6 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
@@ -18,6 +17,8 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -132,7 +133,7 @@ public class BaseStreamingActivity extends AppCompatActivity implements RESConne
         };
         mainHander.sendEmptyMessage(0);
 
-        resClient.setSoftAudioFilter(new SetVolumeAudioFilter());
+//        resClient.setSoftAudioFilter(new SetVolumeAudioFilter());
         sb_zoom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -300,45 +301,37 @@ public class BaseStreamingActivity extends AppCompatActivity implements RESConne
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_toggle:
-                if (!started) {
-                    btn_toggle.setText("stop");
-                    resClient.startStreaming();
-                } else {
-                    btn_toggle.setText("start");
-                    resClient.stopStreaming();
-                }
-                started = !started;
-                break;
-            case R.id.btn_swap:
-                resClient.swapCamera();
-                break;
-            case R.id.btn_flash:
-                resClient.toggleFlashLight();
-                break;
-            case R.id.btn_screenshot:
-                resClient.takeScreenShot(new RESScreenShotListener() {
-                    @Override
-                    public void onScreenShotResult(Bitmap bitmap) {
-                        File f = new File("/sdcard/" + System.currentTimeMillis() + "_libres.png");
-                        try {
-                            if (!f.exists()) {
-                                f.createNewFile();
-                            }
-                            OutputStream outputStream = new FileOutputStream(f);
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                            outputStream.close();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+        int id = v.getId();
+        if (id == R.id.btn_toggle) {
+            if (!started) {
+                btn_toggle.setText("stop");
+                resClient.startStreaming();
+            } else {
+                btn_toggle.setText("start");
+                resClient.stopStreaming();
+            }
+            started = !started;
+        } else if (id == R.id.btn_swap){
+            resClient.swapCamera();
+        } else if (id == R.id.btn_flash){
+            resClient.toggleFlashLight();
+        } else if (id == R.id.btn_screenshot){
+            resClient.takeScreenShot(bitmap -> {
+                File f = new File("/sdcard/" + System.currentTimeMillis() + "_libres.png");
+                try {
+                    if (!f.exists()) {
+                        f.createNewFile();
                     }
-                });
-                break;
+                    OutputStream outputStream = new FileOutputStream(f);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    outputStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            });
         }
     }
-
 }

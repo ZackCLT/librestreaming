@@ -67,7 +67,7 @@ public class RESSoftAudioCore {
             resCoreParameters.mediacodecAACProfile = MediaCodecInfo.CodecProfileLevel.AACObjectLC;
             resCoreParameters.mediacodecAACSampleRate = 44100;
             resCoreParameters.mediacodecAACChannelCount = 1;
-            resCoreParameters.mediacodecAACBitRate = 32 * 1024;
+            resCoreParameters.mediacodecAACBitRate = 64 * 1024;
             resCoreParameters.mediacodecAACMaxInputSize = 8820;
 
             dstAudioFormat = new MediaFormat();

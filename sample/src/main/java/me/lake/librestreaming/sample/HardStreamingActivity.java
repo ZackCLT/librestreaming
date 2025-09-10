@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,22 +15,26 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import jp.co.cyberagent.android.gpuimage.GPUImage3x3ConvolutionFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImage3x3TextureSamplingFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageCGAColorspaceFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageColorInvertFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageCrosshatchFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageGrayscaleFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImagePixelationFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImage3x3ConvolutionFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImage3x3TextureSamplingFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageCGAColorspaceFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageColorInvertFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageCrosshatchFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageGrayscaleFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImagePixelationFilter;
 import me.lake.librestreaming.filter.hardvideofilter.BaseHardVideoFilter;
 import me.lake.librestreaming.filter.hardvideofilter.HardVideoGroupFilter;
 import me.lake.librestreaming.filter.hardvideofilter.OriginalHardVideoFilter;
+import me.lake.librestreaming.filter.softaudiofilter.BaseSoftAudioFilter;
 import me.lake.librestreaming.model.RESConfig;
+import me.lake.librestreaming.sample.audiofilter.BgmAudioFilter;
 import me.lake.librestreaming.sample.hardfilter.ColorMixHardFilter;
 import me.lake.librestreaming.sample.hardfilter.DifferenceBlendFilterHard;
 import me.lake.librestreaming.sample.hardfilter.FishEyeFilterHard;
@@ -124,6 +127,20 @@ public class HardStreamingActivity extends BaseStreamingActivity {
         filterAdapter = new FilterAdapter();
         filterAdapter.updateFilters(filterItems);
         lv_filter.setAdapter(filterAdapter);
+
+
+        try {
+            BaseSoftAudioFilter audioFilter = new BgmAudioFilter(getAssets().openFd("bgm/1749390118642.mp3"), true);
+            resClient.setSoftAudioFilter(audioFilter);
+
+            BaseHardVideoFilter viewFilter = new ViewHardFilter(new FakeView(this));
+            resClient.setHardVideoFilter(viewFilter);
+
+            findViewById(R.id.btn_toggle).performClick();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         lv_filter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

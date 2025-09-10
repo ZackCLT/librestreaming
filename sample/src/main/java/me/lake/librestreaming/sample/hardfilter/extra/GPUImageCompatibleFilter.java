@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter;
 import me.lake.librestreaming.filter.hardvideofilter.BaseHardVideoFilter;
 import me.lake.librestreaming.model.RESCoreParameters;
 import me.lake.librestreaming.tools.GLESTools;
@@ -32,7 +32,7 @@ public class GPUImageCompatibleFilter<T extends GPUImageFilter> extends BaseHard
     @Override
     public void onInit(int VWidth, int VHeight) {
         super.onInit(VWidth, VHeight);
-        innerGPUImageFilter.init();
+        innerGPUImageFilter.ifNeedInit();
         innerGPUImageFilter.onOutputSizeChanged(VWidth, VHeight);
     }
 

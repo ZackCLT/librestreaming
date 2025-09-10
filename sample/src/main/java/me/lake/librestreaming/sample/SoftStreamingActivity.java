@@ -15,10 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.lake.librestreaming.filter.softaudiofilter.BaseSoftAudioFilter;
 import me.lake.librestreaming.filter.softvideofilter.BaseSoftVideoFilter;
 import me.lake.librestreaming.model.RESConfig;
-import me.lake.librestreaming.sample.audiofilter.SetVolumeAudioFilter;
 import me.lake.librestreaming.sample.softfilter.AnimationFilterSoft;
 import me.lake.librestreaming.sample.softfilter.BlackWhiteFilterSoft;
 import me.lake.librestreaming.sample.softfilter.BlurFilterSoft;
@@ -26,7 +24,6 @@ import me.lake.librestreaming.sample.softfilter.DoNothingFilterSoft;
 import me.lake.librestreaming.sample.softfilter.FixYFilterSoft;
 import me.lake.librestreaming.sample.softfilter.GrayFilterSoft;
 import me.lake.librestreaming.sample.softfilter.IconFilterSoft;
-import me.lake.librestreaming.sample.softfilter.SkinBlurFilterSoft;
 
 /**
  * Created by lake on 16-5-31.
@@ -49,7 +46,6 @@ public class SoftStreamingActivity extends BaseStreamingActivity {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
         filterItems.add(new FilterItem("IconFilter", new IconFilterSoft(bitmap)));
         filterItems.add(new FilterItem("BlurFilter", new BlurFilterSoft(this)));
-        filterItems.add(new FilterItem("SkinBlurFilter", new SkinBlurFilterSoft(this)));
         filterItems.add(new FilterItem("FixYFilter", new FixYFilterSoft((byte) 0)));
         Bitmap[] ans = new Bitmap[4];
         ans[0] = BitmapFactory.decodeResource(getResources(), R.drawable.animationa);
@@ -90,10 +86,6 @@ public class SoftStreamingActivity extends BaseStreamingActivity {
                     if (filter instanceof BlurFilterSoft) {
                         BlurFilterSoft blurFilter = (BlurFilterSoft) filter;
                         blurFilter.setRadius(progress / 4);
-                    }
-                    if (filter instanceof SkinBlurFilterSoft) {
-                        SkinBlurFilterSoft skinBlurFilter = (SkinBlurFilterSoft) filter;
-                        skinBlurFilter.setRadius(progress / 4);
                     }
                     if (filter instanceof AnimationFilterSoft) {
                         AnimationFilterSoft animationFilter = (AnimationFilterSoft) filter;
